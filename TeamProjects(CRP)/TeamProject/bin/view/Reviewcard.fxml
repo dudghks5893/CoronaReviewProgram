@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="cardList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="360.0" styleClass="transparent" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ReviewcardController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="360.0" styleClass="transparent" stylesheets="@../application/application.css">
+         <children>
+            <VBox prefHeight="170.0" prefWidth="360.0">
+               <children>
+                  <HBox prefHeight="30.0" prefWidth="360.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="45.0" text="아이디:">
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="userId" prefHeight="30.0" prefWidth="120.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
+                        <Label prefHeight="30.0" prefWidth="45.0" text="시간:">
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="time" prefHeight="30.0" prefWidth="150.0" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="10.0" right="10.0" />
+                     </opaqueInsets>
+                  </HBox>
+                  <VBox prefHeight="80.0" prefWidth="360.0">
+                     <children>
+                        <Label fx:id="text" prefHeight="171.0" prefWidth="444.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="maskrate" prefHeight="56.0" prefWidth="360.0">
+                     <children>
+                        <Label text="마스크지수">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
+                        <HBox prefHeight="16.0" prefWidth="360.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="15.0" prefWidth="60.0" text="거리두기:">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="type1" alignment="CENTER_RIGHT" prefWidth="10.0" />
+                              <Label text="점">
+                                 <HBox.margin>
+                                    <Insets right="50.0" />
+                                 </HBox.margin></Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="15.0" prefWidth="60.0" text="손소독제:">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="type2" alignment="CENTER_RIGHT" prefWidth="10.0" />
+                              <Label text="점" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="16.0" prefWidth="360.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefWidth="60.0" text="체온측정:">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="type3" alignment="CENTER_RIGHT" prefWidth="10.0" />
+                              <Label text="점">
+                                 <HBox.margin>
+                                    <Insets right="50.0" />
+                                 </HBox.margin></Label>
+                              <Label alignment="CENTER_RIGHT" prefWidth="60.0" text="방문일지:">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="type4" alignment="CENTER_RIGHT" prefWidth="10.0" />
+                              <Label text="점" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Line endX="252.2928924560547" endY="-0.9142136573791504" startX="-100.0" stroke="#bbbbbb" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

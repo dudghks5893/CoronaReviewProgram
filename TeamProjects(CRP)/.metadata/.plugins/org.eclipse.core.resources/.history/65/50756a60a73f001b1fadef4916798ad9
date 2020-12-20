@@ -1,0 +1,91 @@
+package view;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import model.Markets;
+import model.Shop;
+import model.Singleton;
+
+
+public class ShopController implements Initializable{
+
+    @FXML
+    private HBox cardList;
+
+    @FXML
+    private ImageView img;
+
+    @FXML
+    private Label shopName;
+
+    @FXML
+    private Label shopid;
+
+    @FXML
+    private Label shopAddress;
+
+    @FXML
+    private Label shopTel;
+
+    @FXML
+    private Label shopOpenHours;
+
+
+
+
+	public void setData(Shop shop) {
+		
+		Image shopImg = new Image(getClass().getResourceAsStream(shop.getImgSrc()));
+	    img.setImage(shopImg);
+	    shopName.setText(shop.getName());
+	    shopAddress.setText(shop.getAddress());
+	    shopTel.setText(shop.getTel());
+	    shopOpenHours.setText(shop.getOpenhours());
+	    shopid.setText(Integer.toString(shop.getMarketid()));
+	    shopid.setVisible(false);
+
+	    }
+
+
+	 @FXML
+	    void mouseClick(MouseEvent event) throws IOException {
+//마우스 클릭
+		 	IndexController2 control = new IndexController2();
+		 	Markets mbean = new Markets();
+		 	mbean = control.MnameToMid(shopName.getText());
+		 	Singleton.setMartid(mbean.getMARKETID());
+		
+		 	cardList.getScene().getWindow().hide();
+		 	Stage viewReview = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("../view/index2.fxml"));
+			Scene scene = new Scene(root);
+			viewReview.setTitle("리뷰보기");
+			viewReview.setScene(scene);
+			viewReview.show();
+
+	    }
+//페이지 끄고 닫는 마우스 클릭 이벤트
+
+
+
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+
+		}
+
+
+}
+
+

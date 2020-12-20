@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="360.0" styleClass="background" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserSignUpController">
+   <children>
+      <ImageView fitHeight="351.0" fitWidth="351.0" layoutX="5.0" layoutY="-84.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/로고.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="LoginPane" layoutX="48.0" layoutY="140.0" prefHeight="300.0" prefWidth="264.0" styleClass="transparent" stylesheets="@../application/application.css" />
+      <Label alignment="CENTER" layoutX="65.0" layoutY="164.0" prefHeight="28.0" prefWidth="62.0" text="ID" />
+      <Label alignment="CENTER" layoutX="65.0" layoutY="204.0" prefHeight="28.0" prefWidth="62.0" text="Name" />
+      <Label alignment="CENTER" layoutX="65.0" layoutY="241.0" prefHeight="28.0" prefWidth="62.0" text="Pw" />
+      <Label alignment="CENTER" layoutX="65.0" layoutY="279.0" prefHeight="28.0" prefWidth="62.0" text="Tel" />
+      <JFXTextField fx:id="SignUpId" focusColor="WHITE" layoutX="128.0" layoutY="161.0" promptText="아이디" />
+      <JFXTextField fx:id="SignUpName" focusColor="WHITE" layoutX="128.0" layoutY="201.0" promptText="이름" />
+      <JFXPasswordField fx:id="SignUpPw" focusColor="WHITE" layoutX="128.0" layoutY="238.0" promptText="비밀번호" />
+      <JFXTextField fx:id="SignUpTel" focusColor="WHITE" layoutX="128.0" layoutY="276.0" promptText="전화번호 - 없이 입력" />
+      <JFXButton fx:id="SignUp" layoutX="77.0" layoutY="328.0" onAction="#SignUpResultBtn" prefHeight="46.0" prefWidth="207.0" styleClass="background" stylesheets="@../application/application.css" text="회원가입" textAlignment="CENTER" />
+      <JFXButton fx:id="SignUpBack" layoutX="77.0" layoutY="386.0" onAction="#SignUpBackBtn" prefHeight="46.0" prefWidth="207.0" styleClass="background" stylesheets="@../application/application.css" text="뒤로가기" textAlignment="CENTER" />
+   </children>
+</AnchorPane>

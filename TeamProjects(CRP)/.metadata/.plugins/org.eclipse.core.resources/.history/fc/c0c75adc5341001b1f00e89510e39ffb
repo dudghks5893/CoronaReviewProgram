@@ -1,0 +1,163 @@
+package view;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+import model.DBConnect;
+import model.Shop;
+import model.Singleton;
+
+public class ShopListCardController implements Initializable {
+	@FXML
+	private Pane restauranticon;
+
+	@FXML
+	private Pane cafeicon;
+
+	@FXML
+	private Pane storeicon;
+
+	@FXML
+	private TextField searchBar;
+
+	@FXML
+	private ScrollPane scroll;
+
+	@FXML
+	private VBox shopBox; // 카드 리스트가(hbox) 들어갈 공간
+
+	@FXML
+	private ImageView imgSearch;
+
+	List<Shop> list; //리스트<Shop>형 변수 선언 (변수는 생성자와 메소드 내에서만 사용되고 생성자와 메소드가 실행 종료되면 자동 소멸된다.)
+	DBConnect connect = new DBConnect();
+	Connection conn;
+	// java.sql.PreparedStatement 클래스는 자바에서 SQL쿼리를 실행할 때 사용하는 클래스. 쿼리문을 유동적으로
+	PreparedStatement pstmt;  // 변형하여 사용할 수도 있고, 실제 쿼리를 실행하였을 때 커맨드창에서 리턴되는 값들을 출력받을 수도 있다
+	ResultSet rs;			 // 자바에서 SELECT 등의 조회 쿼리문을 실행하면 커맨드창이 아니기 때문에 바로 정보를 가져오기 어렵고, 이용하기에도 어려움이 따름
+							// 이 때 사용하게 되는 클래스가 ResultSet 클래스
+
+	@FXML
+	void searchItem(MouseEvent event) { //검색 이미지를 클릭했을때
+		if (event.getSource() == imgSearch) { // 아래 서치를 통해 검색박스를 작성 하면
+			shopBox.getChildren().clear(); // 아래 내용을 지우고
+			list = search(); // 검색박스에 박성한 내용을 sql검색
+			showShops(list); // 검색된 sql문을 리스트에 추가
+							 // 맨아래쪽 이니셜라이즈를 통해 추가된 리스트를 화면에 표현
+		}
+	}
+
+	private List<Shop> search() {
+		list = new ArrayList<Shop>(); // 서치문에 들어갈 리스트를 만듬
+		String sql = "SELECT * FROM market WHERE name LIKE ? OR address LIKE ?";  // 쿼리 객체 선언(pstmt는 ? 사용가능)
+		 conn = connect.getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, '%' + searchBar.getText() + '%');
+			pstmt.setString(2, '%' + searchBar.getText() + '%'); // 이와 같은 방식으로 sql문에 입력을하고
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Shop shop = new Shop(rs.getString("NAME"), rs.getString("ADDRESS"), rs.getString("TEL"),
+						rs.getString("TIME"), rs.getString("IMG"), rs.getInt("marketid"));
+				list.add(shop); // 리스트에 sql문을 넣음
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return list;
+	}
+
+	@FXML
+	void restaurantClick(MouseEvent event) throws IOException { // 레스토랑아이콘 클릭시
+		Singleton.setCategory(1);
+		shopBox.getChildren().clear(); // 클릭해도 전체 리스트가 한번만 나올 수 있도록 셋팅
+		list = shops(Singleton.getCategory());
+		showShops(list);
+	}
+
+	@FXML
+	void cafeClick(MouseEvent event) throws IOException { //카페아이콘 클릭시
+		Singleton.setCategory(2);
+		shopBox.getChildren().clear();
+		list = shops(Singleton.getCategory());
+		showShops(list);
+	}
+
+	@FXML
+	void storeClick(MouseEvent event) throws IOException { //편의점아이콘 클릭시
+		Singleton.setCategory(3);
+		shopBox.getChildren().clear();
+		list = shops(Singleton.getCategory());
+		showShops(list);
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		list = shops(Singleton.getCategory()); // 카테고리에서 지정한 카테고리넘버를 받아와서 리스트 시작화면을 정함
+		showShops(list); // 위의 검색시 검색된 리스트를 화면에 표현
+	}
+
+//2.불러온 정보들을 맞는 위치에 넣어 보여주는 메소드
+	public void showShops(List<Shop> list) {
+		for (int i = 0; i < list.size(); i++) { // 저장된 총 객체수 만큼 반복
+			FXMLLoader fxmlLoader = new FXMLLoader(); // fxml 객체 생성후
+			fxmlLoader.setLocation(getClass().getResource("Shop.fxml")); // shop 파일을 불러옴
+			try {
+				HBox hbox = fxmlLoader.load(); //hbox를 로딩하고
+				ShopController cic = fxmlLoader.getController(); //shopController도 불러옴
+				cic.setData(list.get(i)); //불러온 shopController에 setData로 데이터를 채워넣음
+				shopBox.getChildren().add(hbox); // 카드 리스트가 들어갈 공간에 데이터가 체워진 hbox를 하나씩 넣음
+			} catch (IOException e) {
+				System.out.println("오류남");
+			}
+		}
+	}
+
+//1. DB에서 가게에 대한 정보들을 불러오는 메소드
+	private List<Shop> shops(int x) {
+		list = new ArrayList<>(); // Shop 타입만 넣을 수 있는 shoplist 어레이리스트 생성
+		String sql = "SELECT name, address, tel, time, img, marketid FROM market WHERE cateid = ? "; // DB에서 cateid= ?에
+																										// 해당하는 가게
+																										// 정보(상호명,주소,전화번호,영업시간,이미지주소,마켓아이디)를
+																										// 불러옴
+
+		 conn = connect.getConnection();
+
+
+		try {
+			pstmt = conn.prepareStatement(sql); // Connection정보를 담은 객체 conn으로부터 pstmt 인스턴스를 생성
+			pstmt.setInt(1, Singleton.getCategory());
+			// executeQuery(); 메서드는 쿼리 실행과 동시에 ResultSet 클래스로 되돌려줌
+			rs = pstmt.executeQuery(); // sql문장을 넣어서 쿼리를 실행하고 결과를 rs에 담아옴
+
+			while (rs.next()) { // 쿼리 실행 후 결과값 추출
+				Shop shop = new Shop(rs.getString("NAME"), rs.getString("ADDRESS"), rs.getString("TEL"),
+						rs.getString("TIME"), rs.getString("IMG"), rs.getInt("marketid"));
+				// model.shop.java에 int형 마켓아이디를 추가해서 받을수 있게 만듬
+				list.add(shop); // shoplist에 결과값을 넢음
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+}

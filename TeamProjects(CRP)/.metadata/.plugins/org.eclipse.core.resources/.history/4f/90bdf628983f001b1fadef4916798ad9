@@ -1,0 +1,61 @@
+package model;
+
+import java.sql.Connection;
+
+public class Singleton {
+	private static Singleton ton = null;
+	private static Connection conn;
+	private static DBConnect connect = new DBConnect();
+	private static int juso;
+	private static int category;
+	private static String usname;
+	
+	private static int martid;
+	
+	
+	public static Singleton getInstance() {
+		if(ton ==null) {
+				conn = connect.getConnection();
+		ton = new Singleton();
+		}return ton;
+	}
+	
+	public Connection getDBConnect() {
+		return conn;
+	}
+	public static int getJuso() {
+		return juso;
+	}
+	
+	public static void setJuso(int juso) {
+		Singleton.juso = juso;
+	}
+
+	public static int getCategory() {
+		return category;
+	}
+
+	public static void setCategory(int category) {
+		Singleton.category = category;
+	}
+
+	public static String getUsname() {
+		return usname;
+	}
+
+	public static void setUsname(String usname) {
+		
+		Singleton.usname = usname;
+	}
+
+	public static int getMartid() {
+		return martid;
+	}
+
+	public static void setMartid(int martid) {
+		Singleton.martid = martid;
+	}
+
+
+	
+}

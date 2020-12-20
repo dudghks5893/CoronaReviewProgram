@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="cardList" alignment="CENTER_LEFT" onMouseClicked="#mouseClick" prefHeight="90.0" prefWidth="300.0" spacing="8.0" style="-fx-border-color: bbbbbb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShopController">
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <children>
+      <ImageView fx:id="img" fitHeight="74.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/마이페이보릿쿠키.jpg" />
+         </image>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </ImageView>
+      <AnchorPane prefHeight="86.0" prefWidth="194.0">
+         <children>
+            <HBox layoutX="1.0" layoutY="11.0" prefHeight="89.0" prefWidth="185.0">
+               <children>
+                  <Label fx:id="shopName" prefHeight="19.0" prefWidth="173.0" text="마이페이보릿쿠키" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label fx:id="shopid" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+            <VBox alignment="CENTER_LEFT" layoutX="2.0" layoutY="30.0" prefHeight="56.0" prefWidth="215.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <Label fx:id="shopAddress" alignment="CENTER" text="부산 부산진구 서전로37번길 26" />
+                  <Label fx:id="shopTel" text="051-756-5115" />
+                  <Label fx:id="shopOpenHours" text="평일 12:00 - 19:00" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

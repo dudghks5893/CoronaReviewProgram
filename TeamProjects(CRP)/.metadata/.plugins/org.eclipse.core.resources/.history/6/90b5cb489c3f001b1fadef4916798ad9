@@ -1,0 +1,711 @@
+package view;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import model.Markets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ResourceBundle;
+import java.util.Vector;
+
+import javafx.event.ActionEvent;
+
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import model.Singleton;
+
+public class IndexController2 implements Initializable {
+	@FXML
+	private Text Name;
+	@FXML
+	private Text hour;
+	@FXML
+	private Text address;
+	@FXML
+	private Text ReviewCount;
+	@FXML
+	private Button NameBtn;
+	@FXML
+	private ImageView avg1, avg2, avg3, avg4, avg5, davg1, davg2, davg3, davg4, davg5;
+	@FXML
+	private ImageView distance1, distance2, distance3, distance4, distance5, ddistance1, ddistance2, ddistance3, ddistance4, ddistance5;
+	@FXML
+	private ImageView temper1, temper2, temper3, temper4, temper5, dtemper1, dtemper2, dtemper3, dtemper4, dtemper5;
+	@FXML
+	private ImageView clean1, clean2, clean3, clean4, clean5, dclean1, dclean2, dclean3, dclean4, dclean5;
+	@FXML
+	private ImageView vist1, vist2, vist3, vist4, vist5, dvist1, dvist2, dvist3, dvist4, dvist5;
+	@FXML
+	private Text maxreview2;
+	@FXML
+	private ImageView reviewavg1,reviewavg2,reviewavg3,reviewavg4,reviewavg5,dreviewavg1,dreviewavg2,dreviewavg3,dreviewavg4,dreviewavg5;
+	@FXML
+	private ImageView reviewavg21,reviewavg22,reviewavg23,reviewavg24,reviewavg25,dreviewavg21,dreviewavg22,dreviewavg23,dreviewavg24,dreviewavg25;
+	@FXML
+	private Button reviewbutton;
+	@FXML
+	private Button backbutton;
+	@FXML
+	private TextArea TextA;
+	@FXML
+	private VBox Bigreviewbox;
+//리뷰페이지
+    @FXML
+    void reviewUp(ActionEvent event) throws IOException{
+    	reviewbutton.getScene().getWindow().hide();
+    	Stage movingreview = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("review.fxml"));
+    	Scene scene = new Scene(root);
+    	movingreview.setScene(scene);
+    	movingreview.setTitle("리뷰페이지");
+    	movingreview.show();
+    	}
+//아니 뒤로!
+    @FXML
+    void back(ActionEvent event) throws IOException{
+    	backbutton.getScene().getWindow().hide();
+    	Stage movingreview = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("ShopListCard.fxml"));
+    	Scene scene = new Scene(root);
+    	movingreview.setScene(scene);
+    	movingreview.setTitle("뒤로가기");
+    	movingreview.show();
+    	}
+
+
+
+	private final String URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+	private final String USER = "SCOTT";
+	private final String PASSWORD = "1234";
+
+	int id = Singleton.getMartid();
+
+	public Connection getConnection() {
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			return conn;
+		} catch (SQLException e) {
+			System.out.println("DB연결 문제발생!");
+			return null; // 에러발생시 리턴값은 널
+		}
+
+	}
+	public void showReview(Vector<Markets> rlist) {
+
+		for (int i = 0; i < rlist.size(); i++) {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("ReviewText.fxml"));
+
+			try {
+				HBox hbox = fxmlLoader.load();
+				ReviewTextController Rc = fxmlLoader.getController();
+				Rc.setData(rlist.get(i),i);
+
+				Bigreviewbox.getChildren().add(hbox);
+			} catch (IOException e) {
+				System.out.println("리뷰오류남");
+			}
+		}
+	}
+
+	public Markets getMarkets(int id) {
+		// sql 작성
+		String sql = "SELECT name, address, time FROM Market Where marketid =" + id;
+		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+		Statement stmt; // DB에 보낼 쿼리 객체 선언
+		ResultSet rs; // DB에서 받아오는 결과객체 선언
+		Markets addtime = new Markets();
+		try {
+			stmt = conn.createStatement(); // 쿼리 객체 생성
+			rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			if (rs.next()) {
+				addtime.setNAME(rs.getString(1));
+				addtime.setADDRESS(rs.getString(2));
+				addtime.setTIME(rs.getString(3));
+			}
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+
+		return addtime;
+	}
+	//새로 작성중
+	public Markets getReivewAVG(int id) {
+		// sql 작성
+		String sql = "select (type1+type2+type3+type4)/4 from maskrate where marketid ="+id;
+		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+		Statement stmt; // DB에 보낼 쿼리 객체 선언
+		ResultSet rs; // DB에서 받아오는 결과객체 선언
+		Markets reviewAVG = new Markets();
+		try {
+			stmt = conn.createStatement(); // 쿼리 객체 생성
+			rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			if (rs.next()) {
+				reviewAVG.setAvg(rs.getString(1));
+			}
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+		return reviewAVG;
+	}
+	public Vector<Markets> getReviews2AVG(int id) {
+		// sql 작성
+		String sql = "select (type1+type2+type3+type4)/4 from maskrate where marketid =" + id;
+		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+		Statement stmt; // DB에 보낼 쿼리 객체 선언
+		ResultSet rs; // DB에서 받아오는 결과객체 선언
+		Vector<Markets> slist = new Vector<Markets>();
+		try {
+			stmt = conn.createStatement(); // 쿼리 객체 생성
+			rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			while (rs.next()) {
+				Markets reviewid2 = new Markets();
+				reviewid2.setAvg(rs.getString(1));
+				slist.addElement(reviewid2);
+			}
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+
+		return slist;
+	}
+	public Vector<Markets> getReview(int id) {
+		// sql 작성
+		String sql = "SELECT id,text,time FROM review where marketid = " + id +"order by reviewid DESC";
+		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+		Statement stmt; // DB에 보낼 쿼리 객체 선언
+		ResultSet rs; // DB에서 받아오는 결과객체 선언
+		Vector<Markets> elist = new Vector<Markets>();
+		try {
+			stmt = conn.createStatement(); // 쿼리 객체 생성
+			rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			while (rs.next()) {
+				Markets mbean = new Markets();
+				mbean.setREVIEWID(rs.getString(1));
+				mbean.setREVIEWTEXT(rs.getString(2));
+				mbean.setREVIEWHOUR(rs.getString(3));
+
+				elist.addElement(mbean);
+			}
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+
+		return elist;
+	}
+//	public Markets ReviewRate(int id) {
+//
+//		// sql 작성
+//
+//		String sql = "select Rate from review where marketid = "+ id;
+//		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+//		Statement stmt; // DB에 보낼 쿼리 객체 선언
+//		ResultSet rs; // DB에서 받아오는 결과객체 선언
+//		Markets review = new Markets();
+//		try {
+//			stmt = conn.createStatement(); // 쿼리 객체 생성
+//			rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+//			if (rs.next()) {
+//				review.setReviewCount(rs.getInt("cnt"));
+//			}
+//		} catch (Exception e) {
+//			System.out.println("DB에서 sql문을 실행불가: " + e);
+//		}
+//
+//		return review;
+//	}
+
+
+	public Markets ReviewCount(int id) {
+
+		// sql 작성
+
+		String sql = "select  count(*) cnt from review where marketid = "+ id;
+		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+		Statement stmt; // DB에 보낼 쿼리 객체 선언
+		ResultSet rs; // DB에서 받아오는 결과객체 선언
+		Markets review = new Markets();
+		try {
+			stmt = conn.createStatement(); // 쿼리 객체 생성
+			rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			if (rs.next()) {
+				review.setReviewCount(rs.getInt("cnt"));
+			}
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+
+		return review;
+	}
+
+	public Markets MnameToMid(String name) {
+
+		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+		String sql = "select marketid from market where name = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs; // DB에서 받아오는 결과객체 선언
+		Markets Mbean = new Markets();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery(); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			if(rs.next())
+			Mbean.setMARKETID(rs.getInt(1));
+
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+		return Mbean;
+	}
+
+	public Vector<Markets> getMaskrate(int id) {
+		// sql 작성
+		String sql = "SELECT TYPE1, TYPE2, TYPE3, TYPE4 FROM MASKRATE WHERE marketid = " + id;
+		Connection conn = getConnection(); // 위에서 만든 DB연결 메소드
+		Statement stmt; // DB에 보낼 쿼리 객체 선언
+		ResultSet rs; // DB에서 받아오는 결과객체 선언
+		Vector<Markets> vlist = new Vector<Markets>();
+		try {
+			stmt = conn.createStatement(); // 쿼리 객체 생성
+			rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			while (rs.next()) {
+				Markets mbean = new Markets();
+				mbean.setTYPE1(rs.getInt(1));
+				mbean.setTYPE2(rs.getInt(2));
+				mbean.setTYPE3(rs.getInt(3));
+				mbean.setTYPE4(rs.getInt(4));
+				vlist.addElement(mbean);
+			}
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+
+		return vlist;
+	}
+
+	public void start() {
+		//마켓 정보
+		Markets nbean = getMarkets(id);
+		Singleton.setMtname(nbean.getNAME());
+		Name.setText(nbean.getNAME());
+		address.setText(nbean.getADDRESS());
+		hour.setText(nbean.getTIME());
+
+		//마켓 리뷰 갯수
+		Markets rbean = ReviewCount(id);
+
+		ReviewCount.setText(Integer.toString(rbean.getReviewCount()));
+
+		//마켓 리뷰 평가 타입들
+		Vector<Markets> mlist = getMaskrate(id);
+
+		int sum = 0;
+		for (int i = 0; i < rbean.getReviewCount(); i++) {
+			sum += (mlist.get(i).getTYPE1() +	mlist.get(i).getTYPE2() + mlist.get(i).getTYPE3() +	mlist.get(i).getTYPE4());
+		}
+		int sumavr = sum/(4*(rbean.getReviewCount()));
+
+		//최상단 마켓 평균 평가값
+
+		//중단 마켓 평균 평가값
+		maxreview2.setText(Integer.toString(sumavr));
+
+		//평가값 스마일 그림
+		if (sumavr == 0) {
+
+			avg1.setVisible(false);
+			avg2.setVisible(false);
+			avg3.setVisible(false);
+			avg4.setVisible(false);
+			avg5.setVisible(false);
+			davg1.setVisible(true);
+			davg2.setVisible(true);
+			davg3.setVisible(true);
+			davg4.setVisible(true);
+			davg5.setVisible(true);
+		} else if (sumavr == 1) {
+
+			avg1.setVisible(true);
+			avg2.setVisible(false);
+			avg3.setVisible(false);
+			avg4.setVisible(false);
+			avg5.setVisible(false);
+			davg1.setVisible(false);
+			davg2.setVisible(true);
+			davg3.setVisible(true);
+			davg4.setVisible(true);
+			davg5.setVisible(true);
+		} else if (sumavr == 2) {
+
+			avg1.setVisible(true);
+			avg2.setVisible(true);
+			avg3.setVisible(false);
+			avg4.setVisible(false);
+			avg5.setVisible(false);
+			davg1.setVisible(false);
+			davg2.setVisible(false);
+			davg3.setVisible(true);
+			davg4.setVisible(true);
+			davg5.setVisible(true);
+		} else if (sumavr == 3) {
+			avg1.setVisible(true);
+			avg2.setVisible(true);
+			avg3.setVisible(true);
+			avg4.setVisible(false);
+			avg5.setVisible(false);
+			davg1.setVisible(false);
+			davg2.setVisible(false);
+			davg3.setVisible(false);
+			davg4.setVisible(true);
+			davg5.setVisible(true);
+		} else if (sumavr == 4) {
+			avg1.setVisible(true);
+			avg2.setVisible(true);
+			avg3.setVisible(true);
+			avg4.setVisible(true);
+			avg5.setVisible(false);
+			davg1.setVisible(false);
+			davg2.setVisible(false);
+			davg3.setVisible(false);
+			davg4.setVisible(false);
+			davg5.setVisible(true);
+		} else if (sumavr == 5) {
+
+			avg1.setVisible(true);
+			avg2.setVisible(true);
+			avg3.setVisible(true);
+			avg4.setVisible(true);
+			avg5.setVisible(true);
+			davg1.setVisible(false);
+			davg2.setVisible(false);
+			davg3.setVisible(false);
+			davg4.setVisible(false);
+			davg5.setVisible(false);
+		}
+
+		int dist = 0;
+		for (int i = 0; i < mlist.size(); i++) {
+			dist += mlist.get(i).getTYPE1();
+		}
+
+		int disavrg = dist/mlist.size();
+
+		if (disavrg == 0) {
+			distance1.setVisible(false);
+			distance2.setVisible(false);
+			distance3.setVisible(false);
+			distance4.setVisible(false);
+			distance5.setVisible(false);
+			ddistance1.setVisible(true);
+			ddistance2.setVisible(true);
+			ddistance3.setVisible(true);
+			ddistance4.setVisible(true);
+			ddistance5.setVisible(true);
+		} else if (disavrg == 1) {
+			distance1.setVisible(true);
+			distance2.setVisible(false);
+			distance3.setVisible(false);
+			distance4.setVisible(false);
+			distance5.setVisible(false);
+			ddistance1.setVisible(false);
+			ddistance2.setVisible(true);
+			ddistance3.setVisible(true);
+			ddistance4.setVisible(true);
+			ddistance5.setVisible(true);
+		} else if (disavrg == 2) {
+			distance1.setVisible(true);
+			distance2.setVisible(true);
+			distance3.setVisible(false);
+			distance4.setVisible(false);
+			distance5.setVisible(false);
+			ddistance1.setVisible(false);
+			ddistance2.setVisible(false);
+			ddistance3.setVisible(true);
+			ddistance4.setVisible(true);
+			ddistance5.setVisible(true);
+		} else if (disavrg == 3) {
+			distance1.setVisible(true);
+			distance2.setVisible(true);
+			distance3.setVisible(true);
+			distance4.setVisible(false);
+			distance5.setVisible(false);
+			ddistance1.setVisible(false);
+			ddistance2.setVisible(false);
+			ddistance3.setVisible(false);
+			ddistance4.setVisible(true);
+			ddistance5.setVisible(true);
+		} else if (disavrg == 4) {
+			distance1.setVisible(true);
+			distance2.setVisible(true);
+			distance3.setVisible(true);
+			distance4.setVisible(true);
+			distance5.setVisible(false);
+			ddistance1.setVisible(false);
+			ddistance2.setVisible(false);
+			ddistance3.setVisible(false);
+			ddistance4.setVisible(false);
+			ddistance5.setVisible(true);
+		} else if (disavrg == 5) {
+			distance1.setVisible(true);
+			distance2.setVisible(true);
+			distance3.setVisible(true);
+			distance4.setVisible(true);
+			distance5.setVisible(true);
+			ddistance1.setVisible(false);
+			ddistance2.setVisible(false);
+			ddistance3.setVisible(false);
+			ddistance4.setVisible(false);
+			ddistance5.setVisible(false);
+		}
+
+		int temper = 0;
+		for (int i = 0; i < mlist.size(); i++) {
+			temper += mlist.get(i).getTYPE2();
+		}
+		int temperavr = temper/mlist.size();
+
+
+		if (temperavr == 0) {
+			temper1.setVisible(false);
+			temper2.setVisible(false);
+			temper3.setVisible(false);
+			temper4.setVisible(false);
+			temper5.setVisible(false);
+			dtemper1.setVisible(true);
+			dtemper2.setVisible(true);
+			dtemper3.setVisible(true);
+			dtemper4.setVisible(true);
+			dtemper5.setVisible(true);
+		} else if (temperavr == 1) {
+			temper1.setVisible(true);
+			temper2.setVisible(false);
+			temper3.setVisible(false);
+			temper4.setVisible(false);
+			temper5.setVisible(false);
+			dtemper1.setVisible(false);
+			dtemper2.setVisible(true);
+			dtemper3.setVisible(true);
+			dtemper4.setVisible(true);
+			dtemper5.setVisible(true);
+		} else if (temperavr == 2) {
+			temper1.setVisible(true);
+			temper2.setVisible(true);
+			temper3.setVisible(false);
+			temper4.setVisible(false);
+			temper5.setVisible(false);
+			dtemper1.setVisible(false);
+			dtemper2.setVisible(false);
+			dtemper3.setVisible(true);
+			dtemper4.setVisible(true);
+			dtemper5.setVisible(true);
+		} else if (temperavr == 3) {
+			temper1.setVisible(true);
+			temper2.setVisible(true);
+			temper3.setVisible(true);
+			temper4.setVisible(false);
+			temper5.setVisible(false);
+			dtemper1.setVisible(false);
+			dtemper2.setVisible(false);
+			dtemper3.setVisible(false);
+			dtemper4.setVisible(true);
+			dtemper5.setVisible(true);
+		} else if (temperavr == 4) {
+			temper1.setVisible(true);
+			temper2.setVisible(true);
+			temper3.setVisible(true);
+			temper4.setVisible(true);
+			temper5.setVisible(false);
+			dtemper1.setVisible(false);
+			dtemper2.setVisible(false);
+			dtemper3.setVisible(false);
+			dtemper4.setVisible(false);
+			dtemper5.setVisible(true);
+		} else if (temperavr == 5) {
+			temper1.setVisible(true);
+			temper2.setVisible(true);
+			temper3.setVisible(true);
+			temper4.setVisible(true);
+			temper5.setVisible(true);
+			dtemper1.setVisible(false);
+			dtemper2.setVisible(false);
+			dtemper3.setVisible(false);
+			dtemper4.setVisible(false);
+			dtemper5.setVisible(false);
+		}
+
+		int clean = 0;
+		for (int i = 0; i < mlist.size(); i++) {
+			clean += mlist.get(i).getTYPE3();
+		}
+		int cleanavr = clean/mlist.size();
+
+
+		if (cleanavr == 0) {
+			clean1.setVisible(false);
+			clean2.setVisible(false);
+			clean3.setVisible(false);
+			clean4.setVisible(false);
+			clean5.setVisible(false);
+			dclean1.setVisible(true);
+			dclean2.setVisible(true);
+			dclean3.setVisible(true);
+			dclean4.setVisible(true);
+			dclean5.setVisible(true);
+		} else if (cleanavr == 1) {
+			clean1.setVisible(true);
+			clean2.setVisible(false);
+			clean3.setVisible(false);
+			clean4.setVisible(false);
+			clean5.setVisible(false);
+			dclean1.setVisible(false);
+			dclean2.setVisible(true);
+			dclean3.setVisible(true);
+			dclean4.setVisible(true);
+			dclean5.setVisible(true);
+		} else if (cleanavr == 2) {
+			clean1.setVisible(true);
+			clean2.setVisible(true);
+			clean3.setVisible(false);
+			clean4.setVisible(false);
+			clean5.setVisible(false);
+			dclean1.setVisible(false);
+			dclean2.setVisible(false);
+			dclean3.setVisible(true);
+			dclean4.setVisible(true);
+			dclean5.setVisible(true);
+		} else if (cleanavr == 3) {
+			clean1.setVisible(true);
+			clean2.setVisible(true);
+			clean3.setVisible(true);
+			clean4.setVisible(false);
+			clean5.setVisible(false);
+			dclean1.setVisible(false);
+			dclean2.setVisible(false);
+			dclean3.setVisible(false);
+			dclean4.setVisible(true);
+			dclean5.setVisible(true);
+		} else if (cleanavr == 4) {
+			clean1.setVisible(true);
+			clean2.setVisible(true);
+			clean3.setVisible(true);
+			clean4.setVisible(true);
+			clean5.setVisible(false);
+			dclean1.setVisible(false);
+			dclean2.setVisible(false);
+			dclean3.setVisible(false);
+			dclean4.setVisible(false);
+			dclean5.setVisible(true);
+		} else if (cleanavr == 5) {
+			clean1.setVisible(true);
+			clean2.setVisible(true);
+			clean3.setVisible(true);
+			clean4.setVisible(true);
+			clean5.setVisible(true);
+			dclean1.setVisible(false);
+			dclean2.setVisible(false);
+			dclean3.setVisible(false);
+			dclean4.setVisible(false);
+			dclean5.setVisible(false);
+		}
+
+		int vist = 0;
+		for (int i = 0; i < mlist.size(); i++) {
+			vist += mlist.get(i).getTYPE4();
+		}
+		int vistavr = vist/mlist.size();
+
+		if (vistavr == 0) {
+			vist1.setVisible(false);
+			vist2.setVisible(false);
+			vist3.setVisible(false);
+			vist4.setVisible(false);
+			vist5.setVisible(false);
+			dvist1.setVisible(true);
+			dvist2.setVisible(true);
+			dvist3.setVisible(true);
+			dvist4.setVisible(true);
+			dvist5.setVisible(true);
+		} else if (vistavr == 1) {
+			vist1.setVisible(true);
+			vist2.setVisible(false);
+			vist3.setVisible(false);
+			vist4.setVisible(false);
+			vist5.setVisible(false);
+			dvist1.setVisible(false);
+			dvist2.setVisible(true);
+			dvist3.setVisible(true);
+			dvist4.setVisible(true);
+			dvist5.setVisible(true);
+		} else if (vistavr == 2) {
+			vist1.setVisible(true);
+			vist2.setVisible(true);
+			vist3.setVisible(false);
+			vist4.setVisible(false);
+			vist5.setVisible(false);
+			dvist1.setVisible(false);
+			dvist2.setVisible(false);
+			dvist3.setVisible(true);
+			dvist4.setVisible(true);
+			dvist5.setVisible(true);
+		} else if (vistavr == 3) {
+			vist1.setVisible(true);
+			vist2.setVisible(true);
+			vist3.setVisible(true);
+			vist4.setVisible(false);
+			vist5.setVisible(false);
+			dvist1.setVisible(false);
+			dvist2.setVisible(false);
+			dvist3.setVisible(false);
+			dvist4.setVisible(true);
+			dvist5.setVisible(true);
+		} else if (vistavr == 4) {
+			vist1.setVisible(true);
+			vist2.setVisible(true);
+			vist3.setVisible(true);
+			vist4.setVisible(true);
+			vist5.setVisible(false);
+			dvist1.setVisible(false);
+			dvist2.setVisible(false);
+			dvist3.setVisible(false);
+			dvist4.setVisible(false);
+			dvist5.setVisible(true);
+		} else if (vistavr == 5) {
+			vist1.setVisible(true);
+			vist2.setVisible(true);
+			vist3.setVisible(true);
+			vist4.setVisible(true);
+			vist5.setVisible(true);
+			dvist1.setVisible(false);
+			dvist2.setVisible(false);
+			dvist3.setVisible(false);
+			dvist4.setVisible(false);
+			dvist5.setVisible(false);
+		}
+	}
+
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		start();
+		Vector<Markets>rlist = getReview(id);
+		showReview(rlist);
+
+	}
+}

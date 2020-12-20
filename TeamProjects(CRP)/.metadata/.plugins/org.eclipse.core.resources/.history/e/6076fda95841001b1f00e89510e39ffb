@@ -1,0 +1,71 @@
+package view;
+
+import java.io.IOException;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import model.Markets;
+import model.Shop;
+import model.Singleton;
+
+public class ShopController { //shopListCard와 별개로 관리해야되기 때문에 shop을 따로 만듬
+
+	@FXML
+	private HBox cardList; // 전체 틀
+
+	@FXML
+	private ImageView img; //이미지를 넣는 라벨
+
+	@FXML
+	private Label shopName; //상호명을 넣는 라벨
+
+	@FXML
+	private Label shopid; // 마켓아이디를 받을 수 있는 숨겨진 라벨 지정
+
+	@FXML
+	private Label shopAddress; //주소가 들어가는 라벨
+
+	@FXML
+	private Label shopTel; //전화번호가 들어가는 라벨
+
+	@FXML
+	private Label shopOpenHours; //영업시간이 들어가는 라벨
+
+	public void setData(Shop shop) {
+
+		Image shopImg = new Image(getClass().getResourceAsStream(shop.getImgSrc()));
+		img.setImage(shopImg);
+		shopName.setText(shop.getName());
+		shopAddress.setText(shop.getAddress());
+		shopTel.setText(shop.getTel());
+		shopOpenHours.setText(shop.getOpenhours());
+		shopid.setText(Integer.toString(shop.getMarketid()));
+		shopid.setVisible(false); // shopid에 마켓아이디를 넣고 setVisible(false)을 통해 숨김
+	}
+
+	@FXML
+	void mouseClick(MouseEvent event) throws IOException {
+
+		IndexController2 control = new IndexController2();
+		Markets mbean = new Markets();
+		mbean = control.MnameToMid(shopName.getText());
+		// 인덱스2 와 마켓 의 생성자를 만들어서 인덱스2 안에 있는 MnameTomid 생성자 에 shopname을 지정해서 marketid를
+		// 가져옴
+		Singleton.setMartid(mbean.getMARKETID()); // 위를통해 가져온 marketid를 싱글톤 set지정
+
+		cardList.getScene().getWindow().hide();
+		Stage viewReview = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("../view/index2.fxml"));
+		Scene scene = new Scene(root);
+		viewReview.setTitle("리뷰보기");
+		viewReview.setScene(scene);
+		viewReview.show();
+	}
+}

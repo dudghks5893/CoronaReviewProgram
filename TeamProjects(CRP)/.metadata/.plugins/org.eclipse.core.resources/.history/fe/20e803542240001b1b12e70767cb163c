@@ -1,0 +1,50 @@
+package view;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.Vector;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
+import model.Markets;
+import model.Singleton;
+import javafx.scene.control.Label;
+
+
+
+public class ReviewTextController implements Initializable{
+	@FXML
+	private HBox reviewList;
+	@FXML
+	private Label Reviewid;
+	@FXML
+	private Label ReviewText;
+	@FXML
+	private Label Reviewhour;
+	@FXML
+	private Label Reviewavg;
+	@FXML
+	private Label ReviewTest;
+
+	IndexController2 control = new IndexController2();
+
+public void setData(Markets rereviewBean,int i) {
+
+	Reviewid.setText(rereviewBean.getREVIEWID());
+	ReviewText.setText(rereviewBean.getREVIEWTEXT());
+	Reviewhour.setText(rereviewBean.getREVIEWHOUR());
+	Vector<Markets> avglist = new Vector<Markets>();
+	avglist = control.getReviews2AVG(Singleton.getMartid(),rereviewBean.getREVIEMASKID());
+	Reviewavg.setText(avglist.get(0).getAvg()+"Á¡");
+
+}
+
+
+@Override
+public void initialize(URL location, ResourceBundle resources) {
+	// TODO Auto-generated method stub
+
+}
+
+
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="360.0" styleClass="background" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShopListCardController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="-6.0" layoutY="-6.0" prefHeight="507.0" prefWidth="54.0" spacing="22.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../application/application.css">
+         <children>
+            <Pane fx:id="restauranticon" onMouseClicked="#restaurantClick" prefHeight="35.0" prefWidth="30.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="15.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/restaurant.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="cafeicon" onMouseClicked="#cafeClick" prefHeight="35.0" prefWidth="30.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/cafe.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="storeicon" onMouseClicked="#storeClick" prefHeight="35.0" prefWidth="30.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/store.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+         <padding>
+            <Insets top="45.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <TextField fx:id="searchBar" layoutX="99.0" layoutY="51.0" prefHeight="25.0" prefWidth="214.0" promptText="장소를 검색하세요" styleClass="search-box" stylesheets="@../application/application.css" />
+      <HBox alignment="CENTER" layoutX="53.0" layoutY="87.0" prefHeight="414.0" prefWidth="306.0">
+         <children>
+            <ScrollPane fx:id="scroll" prefHeight="400.0" prefWidth="363.0" styleClass="background" stylesheets="@../application/application.css">
+               <content>
+                  <VBox fx:id="shopBox" alignment="TOP_CENTER" prefHeight="412.0" prefWidth="306.0" spacing="5.0" styleClass="background" stylesheets="@../application/application.css" />
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+      <ImageView fx:id="imgSearch" fitHeight="20.0" fitWidth="25.0" layoutX="286.0" layoutY="55.0" onMouseClicked="#searchItem" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/search.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="90.0" fitWidth="88.0" layoutX="162.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/로고2.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

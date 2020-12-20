@@ -1,0 +1,20 @@
+package model;
+
+public class mask {
+	private String mask;
+
+	public String getMask() {
+		return mask;
+	}
+
+	public void setMask(String mask) {
+		this.mask = mask;
+	}
+
+	public mask(String mask) {
+		super();
+		this.mask = mask;
+	}
+
+
+}

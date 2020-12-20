@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="360.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.IndexController2">
+   <children>
+      <AnchorPane layoutX="3.0" layoutY="5.0" prefHeight="490.0" prefWidth="350.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Text layoutX="4.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="최근 리뷰 ">
+               <font>
+                  <Font name="NanumGothicOTF" size="25.0" />
+               </font>
+            </Text>
+            <Text fx:id="ReviewCount" layoutX="112.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+               <font>
+                  <Font name="NanumGothicOTF" size="25.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="4.0" layoutY="99.0" prefHeight="109.0" prefWidth="350.0" style="-fx-border-radius: 5; -fx-border-color: #d3d3d3;">
+               <children>
+                  <Text layoutX="3.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="마스크 지수" wrappingWidth="343.55599933862686">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="maxreview2" layoutX="69.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                     <font>
+                        <Font name="NanumGothicOTF" size="55.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="avg1" fitHeight="45.0" fitWidth="30.0" layoutX="35.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="avg2" fitHeight="45.0" fitWidth="30.0" layoutX="52.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="avg3" fitHeight="45.0" fitWidth="30.0" layoutX="69.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="avg4" fitHeight="45.0" fitWidth="30.0" layoutX="86.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="davg5" fitHeight="45.0" fitWidth="30.0" layoutX="103.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="155.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="거리두기" wrappingWidth="95.0">
+                     <font>
+                        <Font name="NanumGothicOTF" size="15.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="distance1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="distance2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="distance3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="distance4" fitHeight="45.0" fitWidth="30.0" layoutX="273.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="ddistance5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="155.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="체온측정" wrappingWidth="95.0">
+                     <font>
+                        <Font name="NanumGothicOTF" size="15.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="temper1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="temper2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="temper3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="temper4" fitHeight="45.0" fitWidth="30.0" layoutX="273.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dtemper5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="155.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="직원청결" wrappingWidth="95.0">
+                     <font>
+                        <Font name="NanumGothicOTF" size="15.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="clean1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="clean2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="clean3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="clean4" fitHeight="45.0" fitWidth="30.0" layoutX="273.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dclean5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="155.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="방문일지" wrappingWidth="95.0">
+                     <font>
+                        <Font name="NanumGothicOTF" size="15.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="vist1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="vist2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="vist3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="vist4" fitHeight="45.0" fitWidth="30.0" layoutX="273.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dclean5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="davg1" fitHeight="45.0" fitWidth="30.0" layoutX="35.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="davg2" fitHeight="45.0" fitWidth="30.0" layoutX="52.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="davg3" fitHeight="45.0" fitWidth="30.0" layoutX="69.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="davg4" fitHeight="45.0" fitWidth="30.0" layoutX="86.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="avg5" fitHeight="45.0" fitWidth="30.0" layoutX="104.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="ddistance1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="distance5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="ddistance2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="ddistance3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="ddistance4" fitHeight="45.0" fitWidth="30.0" layoutX="273.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dtemper1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="temper5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dtemper2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dtemper3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dtemper4" fitHeight="45.0" fitWidth="30.0" layoutX="273.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="clean5" fitHeight="45.0" fitWidth="30.0" layoutX="289.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dclean1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dclean2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dclean3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dclean4" fitHeight="45.0" fitWidth="30.0" layoutX="274.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="vist5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dvist2" fitHeight="45.0" fitWidth="30.0" layoutX="239.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dvist3" fitHeight="45.0" fitWidth="30.0" layoutX="256.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dvist4" fitHeight="45.0" fitWidth="30.0" layoutX="273.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dvist5" fitHeight="45.0" fitWidth="30.0" layoutX="290.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dvist1" fitHeight="45.0" fitWidth="30.0" layoutX="222.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Mask2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="-2.0" layoutY="-6.0" prefHeight="80.0" prefWidth="360.0">
+               <children>
+                  <AnchorPane layoutX="2.0" prefHeight="61.0" prefWidth="350.0" style="-fx-border-radius: 5; -fx-border-color: #D3D3D3;">
+                     <children>
+                        <ImageView fx:id="mask1" fitHeight="60.0" fitWidth="45.0" layoutX="65.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/mask.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mask2" fitHeight="60.0" fitWidth="45.0" layoutX="95.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/mask.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mask3" fitHeight="60.0" fitWidth="45.0" layoutX="125.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/mask.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mask4" fitHeight="60.0" fitWidth="45.0" layoutX="155.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/mask.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="darkmask5" fitHeight="60.0" fitWidth="45.0" layoutX="185.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="Name" layoutX="2.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="NAME" textAlignment="CENTER" wrappingWidth="350.00000232458115">
+                           <font>
+                              <Font name="NanumGothicOTF" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="maxreview" layoutX="230.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4.0">
+                           <font>
+                              <Font name="NanumGothicOTF" size="20.0" />
+                           </font>
+                        </Text>
+                        <AnchorPane layoutX="3.0" layoutY="64.0" prefHeight="42.0" prefWidth="350.0" style="-fx-border-radius: 10; -fx-border-color: #d3d3d3;">
+                           <children>
+                              <Text fx:id="hour" layoutX="6.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="Text" wrappingWidth="343.55598986148834">
+                                 <font>
+                                    <Font name="NanumGothicOTF" size="12.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="address" layoutX="6.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="Text" wrappingWidth="343.5559997558594">
+                                 <font>
+                                    <Font name="NanumGothicOTF" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <ImageView fx:id="darkmask1" fitHeight="53.0" fitWidth="45.0" layoutX="65.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="darkmask2" fitHeight="60.0" fitWidth="45.0" layoutX="95.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="darkmask3" fitHeight="60.0" fitWidth="45.0" layoutX="125.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="darkmask4" fitHeight="60.0" fitWidth="45.0" layoutX="155.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mask5" fitHeight="60.0" fitWidth="45.0" layoutX="185.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/mask.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="backbutton" layoutY="-1.0" mnemonicParsing="false" onAction="#back" prefHeight="24.0" prefWidth="61.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-border-color: #d3d3d3;" text="뒤로가기">
+                           <font>
+                              <Font name="NanumGothicOTF" size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <Button fx:id="reviewbutton" layoutX="215.0" layoutY="225.0" mnemonicParsing="false" onAction="#reviewUp" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-border-color: #d3d3d3;" text="리뷰쓰기">
+               <font>
+                  <Font name="NanumGothicOTF" size="22.0" />
+               </font>
+            </Button>
+            <ListView layoutX="4.0" layoutY="208.0" prefHeight="14.0" prefWidth="350.0" style="-fx-background-color: f1f1f1;" />
+            <ScrollPane layoutX="-2.0" layoutY="274.0" prefHeight="220.0" prefWidth="360.0" styleClass="transparent">
+               <content>
+                  <VBox fx:id="Bigreviewbox" prefHeight="220.0" prefWidth="360.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

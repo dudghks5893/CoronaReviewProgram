@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="360.0" styleClass="background" stylesheets="@../application/application.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+   <children>
+      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="360.0">
+         <children>
+            <Button fx:id="backbt" mnemonicParsing="false" onAction="#GoBack" prefHeight="24.0" prefWidth="61.0" style="-fx-border-radius: 10; -fx-border-color: bbbbbb;" styleClass="background" stylesheets="@../application/application.css" text="뒤로가기">
+               <font>
+                  <Font name="NanumGothicOTF" size="10.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="230.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="Reviewbt" mnemonicParsing="false" onAction="#GoReview" prefHeight="24.0" prefWidth="61.0" style="-fx-border-radius: 10; -fx-border-color: bbbbbb;" styleClass="background" stylesheets="@../application/application.css" text="리뷰쓰기">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <ScrollPane layoutY="43.0" prefHeight="457.0" prefWidth="360.0" styleClass="background" stylesheets="@../application/application.css">
+         <content>
+            <VBox alignment="TOP_CENTER" prefHeight="457.0" prefWidth="359.0" styleClass="background" stylesheets="@../application/application.css">
+               <children>
+                  <Label fx:id="Mname" text="Label">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Maddress" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Mtel" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Mtime" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane prefHeight="132.0" prefWidth="350.0" style="-fx-border-radius: 5; -fx-border-color: bbbbbb;" styleClass="background" stylesheets="@../application/application.css">
+                     <children>
+                        <Label layoutX="26.0" layoutY="4.0" text="마스크 지수 총점">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="totalAVG" layoutX="71.0" layoutY="24.0" prefHeight="53.0" prefWidth="34.0" text="5">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="TotalAVG1" fitHeight="43.0" fitWidth="61.0" layoutX="14.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="TotalAVG2" fitHeight="43.0" fitWidth="61.0" layoutX="42.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="TotalAVG3" fitHeight="43.0" fitWidth="61.0" layoutX="69.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="TotalAVG4" fitHeight="43.0" fitWidth="61.0" layoutX="94.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="TotalAVG5" fitHeight="43.0" fitWidth="61.0" layoutX="120.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="163.0" layoutY="24.0" text="거리두기">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="163.0" layoutY="46.0" text="체온측정">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="163.0" layoutY="66.0" text="직원청결">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="163.0" layoutY="88.0" text="방문일지">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="AVG1_1" fitHeight="43.0" fitWidth="61.0" layoutX="223.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG1_2" fitHeight="43.0" fitWidth="61.0" layoutX="241.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG1_3" fitHeight="43.0" fitWidth="61.0" layoutX="259.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG1_4" fitHeight="43.0" fitWidth="61.0" layoutX="277.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG1_5" fitHeight="43.0" fitWidth="61.0" layoutX="295.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG2_1" fitHeight="43.0" fitWidth="61.0" layoutX="223.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG2_2" fitHeight="43.0" fitWidth="61.0" layoutX="241.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG2_3" fitHeight="43.0" fitWidth="61.0" layoutX="259.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG2_4" fitHeight="43.0" fitWidth="61.0" layoutX="277.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG2_5" fitHeight="43.0" fitWidth="61.0" layoutX="295.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG3_1" fitHeight="43.0" fitWidth="61.0" layoutX="223.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG3_2" fitHeight="43.0" fitWidth="61.0" layoutX="241.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG3_3" fitHeight="43.0" fitWidth="61.0" layoutX="259.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG3_4" fitHeight="43.0" fitWidth="61.0" layoutX="277.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG3_5" fitHeight="43.0" fitWidth="61.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG4_1" fitHeight="43.0" fitWidth="61.0" layoutX="223.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG4_2" fitHeight="43.0" fitWidth="61.0" layoutX="241.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG4_3" fitHeight="43.0" fitWidth="61.0" layoutX="259.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG4_4" fitHeight="43.0" fitWidth="61.0" layoutX="277.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="AVG4_5" fitHeight="43.0" fitWidth="61.0" layoutX="295.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/Mask2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="359.0">
+                     <children>
+                        <Label text="최근 리뷰">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="ReviewCount" text="5">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox fx:id="reviewbox" prefHeight="170.0" prefWidth="360.0" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

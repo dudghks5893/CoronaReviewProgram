@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="360.0" styleClass="background" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserLoginController">
+   <children>
+      <ImageView fitHeight="351.0" fitWidth="351.0" layoutX="5.0" layoutY="-84.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/로고.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="LoginPane" layoutX="49.0" layoutY="141.0" prefHeight="300.0" prefWidth="264.0" style="-fx-background-color: #fff;" />
+      <JFXTextField fx:id="UserId" alignment="CENTER" focusColor="RED" layoutX="60.0" layoutY="182.0" prefHeight="22.0" prefWidth="241.0" promptText="ID" />
+      <JFXPasswordField fx:id="UserPw" alignment="CENTER" focusColor="RED" layoutX="61.0" layoutY="237.0" prefHeight="22.0" prefWidth="241.0" promptText="Password" />
+      <JFXButton fx:id="UserLogin" layoutX="60.0" layoutY="309.0" onAction="#UserLoginBtn" prefHeight="46.0" prefWidth="241.0" styleClass="background" stylesheets="@../application/application.css" text="로그인" textAlignment="CENTER" />
+      <JFXButton fx:id="SignUp" layoutX="61.0" layoutY="380.0" onAction="#SignUpBtn" prefHeight="46.0" prefWidth="241.0" styleClass="background" stylesheets="@../application/application.css" text="회원가입" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,267 @@
+package view;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+
+import javafx.scene.control.Label;
+
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import model.DBConnect;
+import model.Markets;
+import model.Review;
+import model.Singleton;
+
+public class details2Controller implements Initializable {
+	@FXML
+	private Button backbt;
+	@FXML
+	private Button Reviewbt;
+	@FXML
+	private Label Mname;
+	@FXML
+	private Label Maddress;
+	@FXML
+	private Label Mtel;
+	@FXML
+	private Label Mtime;
+	@FXML
+	private Label totalAVG;
+	@FXML
+	private ImageView TotalAVG1;
+	@FXML
+	private ImageView TotalAVG2;
+	@FXML
+	private ImageView TotalAVG3;
+	@FXML
+	private ImageView TotalAVG4;
+	@FXML
+	private ImageView TotalAVG5;
+	@FXML
+	private ImageView AVG1_1;
+	@FXML
+	private ImageView AVG1_2;
+	@FXML
+	private ImageView AVG1_3;
+	@FXML
+	private ImageView AVG1_4;
+	@FXML
+	private ImageView AVG1_5;
+	@FXML
+	private ImageView AVG2_1;
+	@FXML
+	private ImageView AVG2_2;
+	@FXML
+	private ImageView AVG2_3;
+	@FXML
+	private ImageView AVG2_4;
+	@FXML
+	private ImageView AVG2_5;
+	@FXML
+	private ImageView AVG3_1;
+	@FXML
+	private ImageView AVG3_2;
+	@FXML
+	private ImageView AVG3_3;
+	@FXML
+	private ImageView AVG3_4;
+	@FXML
+	private ImageView AVG3_5;
+	@FXML
+	private ImageView AVG4_1;
+	@FXML
+	private ImageView AVG4_2;
+	@FXML
+	private ImageView AVG4_3;
+	@FXML
+	private ImageView AVG4_4;
+	@FXML
+	private ImageView AVG4_5;
+	@FXML
+	private Label ReviewCount;
+	@FXML
+	private VBox reviewbox;
+
+	List<Review> list;
+	DBConnect connect = new DBConnect();
+	Connection conn;
+	PreparedStatement pstmt;
+	Statement stmt;
+	ResultSet rs;
+
+	@FXML
+	public void GoBack(ActionEvent event) {
+		backbt.getScene().getWindow().hide(); // 현재 페이지를 안보이게 닫기
+
+		Stage review = new Stage();
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/ShopListCard.fxml"));
+			Scene scene = new Scene(root);
+			review.setScene(scene);
+			review.show();
+		} catch (IOException e) {
+			System.out.println("리뷰쓰러가기 오류 발생" + e.getMessage());
+		}
+	}
+	@FXML
+	public void GoReview(ActionEvent event) {
+		Reviewbt.getScene().getWindow().hide(); // 현재 페이지를 안보이게 닫기
+
+		Stage review = new Stage();
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/review.fxml"));
+			Scene scene = new Scene(root);
+			review.setScene(scene);
+			review.show();
+		} catch (IOException e) {
+			System.out.println("리뷰쓰러가기 오류 발생" + e.getMessage());
+		}
+	}
+	//싱글톤으로 현재 가게이름 받아옴
+	public void mtName() {
+		Mname.setText(Singleton.getMtname());
+	}
+//보여지는 곳 이니셜라이즈(초기화하다)
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// 프로그램 실행시 아래 내용이 실행됨
+		list = ReviewList();
+		showReview(list);
+
+		//가게 이름,주소,전화번호,영업시간 보여지게함
+		Markets nbean = getMarkets();
+		Singleton.setMtname(nbean.getNAME()); // 싱글톤으로 현재 가게이름 보냄 (리뷰쓰기에서 가게이름 받아오기 위해서)
+		Mname.setText(nbean.getNAME());
+		Maddress.setText(nbean.getADDRESS());
+		Mtel.setText(nbean.getTEL());
+		Mtime.setText(nbean.getTIME());
+		//리뷰갯수 보여지게함
+		Markets count = reviewcount();
+		ReviewCount.setText(Integer.toString(count.getReviewCount()));
+
+
+	}
+	public Markets reviewcount(){
+
+		String sql = "select COUNT(*) FROM maskrate where marketid = ?";
+		conn = connect.getConnection();
+		Markets count = new Markets();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,Singleton.getMartid());
+		 	rs = pstmt.executeQuery();
+		 	if(rs.next()){
+		 		count.setReviewCount(rs.getInt(1));
+		 	}
+		} catch (Exception e) {
+			System.out.println("DB에서 리뷰횟수 불러오기 실패:"+e.getMessage());
+		}
+
+		return count;
+	}
+
+	public Markets AVG(){
+
+		String sql = "select AVG(type1),AVG(type2),AVG(type3),AVG(type4) from maskrate where marketid = ?";
+		conn = connect.getConnection();
+		Markets avg = new Markets();
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,Singleton.getMartid());
+		 	rs = pstmt.executeQuery();
+		 	if(rs.next()){
+		 		avg.setTYPE1(rs.getInt(1));
+		 		avg.setTYPE2(rs.getInt(2));
+		 		avg.setTYPE3(rs.getInt(3));
+		 		avg.setTYPE4(rs.getInt(4));
+		 	}
+		} catch (Exception e) {
+			System.out.println("DB에서 평균점수 불러오기 실패:"+e.getMessage());
+		}
+		return avg;
+	}
+
+//마켓 이름 주소 전화번호 영업시간 가져오기 구현
+	public Markets getMarkets() {
+		// sql 작성
+		String sql = "SELECT name,address,tel,time FROM market where marketid =? ";
+		conn = connect.getConnection(); // 위에서 만든 DB연결 메소드
+		Markets MT = new Markets();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,Singleton.getMartid());
+			rs = pstmt.executeQuery(); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			if (rs.next()) {
+				MT.setNAME(rs.getString(1));
+				MT.setADDRESS(rs.getString(2));
+				MT.setTEL(rs.getString(3));
+				MT.setTIME(rs.getString(4));
+			}
+		} catch (Exception e) {
+			System.out.println("DB에서 sql문을 실행불가: " + e);
+		}
+		return MT;
+	}
+
+//리뷰 카드 구현 메소드
+	public void showReview(List<Review> list){
+		for (int i = 0; i < list.size(); i++) {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("Reviewcard.fxml"));
+
+			try {
+
+				HBox hbox = fxmlLoader.load();
+				reviewbox.getChildren().add(hbox);
+				ReviewcardController cic = fxmlLoader.getController();
+				cic.setData(list.get(i));
+
+			} catch (Exception e) {
+				System.out.println("오류남");
+			}
+		}
+	}
+
+//리뷰 카드 구현 메소드
+	private List<Review> ReviewList() {
+		List<Review> ReviewList = new ArrayList<>();
+
+		Review review;
+		String sql = "SELECT id,time,text,type1,type2,type3,type4 from review,maskrate where review.maskid = maskrate.maskid and review.marketid = ? order by reviewid DESC";
+
+		 conn = connect.getConnection(); // 위에서 만든 DB연결 메소드
+
+		try {
+			pstmt = conn.prepareStatement(sql); // 쿼리 객체 생성
+			pstmt.setInt(1,Singleton.getMartid());
+			rs = pstmt.executeQuery(); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			while (rs.next()) {
+				review = new Review(rs.getString("id"), rs.getString("time"), rs.getString("text"), rs.getString("type1"),
+						rs.getString("type2"), rs.getString("type3"), rs.getString("type4"));
+				ReviewList.add(review);
+			}
+		} catch (SQLException e) {
+			System.out.println("DB에서 sql문을 실행불가:" + e.getMessage());
+		}
+		return ReviewList;
+	}
+}

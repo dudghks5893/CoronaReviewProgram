@@ -1,0 +1,119 @@
+package view;
+
+
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
+import application.Message;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import model.DBConnect;
+import model.Singleton;
+
+public class UserLoginController{
+
+    @FXML
+    private Pane LoginPane;
+
+	@FXML
+    private JFXTextField UserId;
+
+	@FXML
+    private JFXPasswordField UserPw;
+
+
+    @FXML
+    private JFXButton UserLogin;
+
+
+    @FXML
+    private JFXButton SignUp;
+
+    @FXML
+    private Label UserResult;
+
+    Message msg = new Message();
+    DBConnect connect = new DBConnect();
+    Connection conn;
+    PreparedStatement pstmt;
+    ResultSet rs;
+
+
+    @FXML
+    void SaveAccountCheck(ActionEvent event) {
+
+    }
+
+    @FXML
+    void SignUpBtn(ActionEvent event) throws IOException {
+    	SignUp.getScene().getWindow().hide();
+    	Stage signup = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("../view/UserSignUp.fxml"));
+    	Scene scene = new Scene(root);
+    	signup.setScene(scene);
+    	signup.setTitle("회원 가입");
+    	signup.show();
+    }
+
+
+
+    @FXML
+    void UserLoginBtn(ActionEvent event) throws IOException, SQLException{
+
+    	conn = connect.getConnection();
+
+    	String sql = "SELECT * FROM customer WHERE id=? AND password=?";
+
+    	Singleton.setUsname(UserId.getText());
+
+    	pstmt = conn.prepareStatement(sql);
+    	pstmt.setString(1, UserId.getText());
+    	pstmt.setString(2, UserPw.getText());
+    	rs = pstmt.executeQuery();
+
+    	if(rs.next()) {
+//    		msg.setMessage("Welcome");
+    		//현재 창을 닫는다
+    		UserLogin.getScene().getWindow().hide();
+    		//새 홈페이지 화면을 띄운다
+    		Stage cate = new Stage();
+        	Parent root = FXMLLoader.load(getClass().getResource("../view/Category.fxml"));
+        	Scene scene = new Scene(root);
+        	cate.setScene(scene);
+        	cate.setTitle("지역구 카테고리");
+        	cate.show();
+
+    	}
+    	else if((UserId.getText().equals("")) && UserPw.getText().equals("")){
+    		msg.setMessage("로그인 정보를 입력해 주세요.");
+    	}
+
+    	else if(UserPw.getText().equals("")){
+    		msg.setMessage("비밀번호를 입력해 주세요.");
+    	}
+    	else {
+    		msg.setMessage("아이디와 패스워드를 재확인하십시요.");
+    	}
+
+
+    }
+
+
+
+	}
+
+

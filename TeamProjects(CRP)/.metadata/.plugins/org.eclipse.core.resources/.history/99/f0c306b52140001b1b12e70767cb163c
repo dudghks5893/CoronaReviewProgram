@@ -1,0 +1,12 @@
+package model;
+
+public class mask {
+	private String mask;
+
+	public mask(String mask) {
+		super();
+		this.mask = mask;
+	}
+
+
+}

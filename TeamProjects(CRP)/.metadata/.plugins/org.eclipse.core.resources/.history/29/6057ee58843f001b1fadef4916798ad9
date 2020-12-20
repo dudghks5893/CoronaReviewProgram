@@ -1,0 +1,125 @@
+package view;
+
+
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
+import application.SignUpMessage;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import model.DBConnect;
+
+public class UserSignUpController implements Initializable{
+
+    @FXML
+    private JFXButton SignUp;
+    SignUpMessage msg = new SignUpMessage();
+    DBConnect connect = new DBConnect(); //모델패키지의 커넥트를 가졈
+    Connection conn;
+
+    @FXML
+    private JFXButton SignUpBack;
+
+    @FXML
+    private JFXTextField SignUpId;
+
+    @FXML
+    private JFXTextField SignUpName;
+
+    @FXML
+    private JFXPasswordField SignUpPw;
+
+
+    @FXML
+    private JFXTextField SignUpTel;
+
+    @FXML
+    private Label PwCheck;
+
+    @FXML
+    void SignUpBackBtn(ActionEvent event) throws IOException{
+    	SignUpBack.getScene().getWindow().hide();
+    	Stage findaccount = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("../view/UserLogin.fxml"));
+    	Scene scene = new Scene(root);
+    	findaccount.setScene(scene);
+    	findaccount.setTitle("코로나 안전 리뷰 프로그램");
+    	findaccount.show();
+    }
+
+    @FXML
+    void SignUpResultBtn(ActionEvent event)throws SQLException, IOException {
+
+
+
+    	if((SignUpId.getText().equals("")) && SignUpName.getText().equals("") && SignUpPw.getText().equals("") && SignUpTel.getText().equals("")){
+    		msg.setMessage("회원가입 정보를 입력해 주세요.");
+    	}
+    	else if(SignUpId.getText().equals("")){
+    		msg.setMessage("ID를 입력해 주세요.");
+    	}
+    	else if(SignUpName.getText().equals("")){
+    		msg.setMessage("이름을 입력해 주세요.");
+    	}
+    	else if(SignUpPw.getText().equals("")){
+    		msg.setMessage("비밀번호를 입력해 주세요.");
+    	}
+    	else if(SignUpTel.getText().equals("")){
+    		msg.setMessage("전화번호를 입력해 주세요.");
+    	}
+
+    	conn = connect.getConnection();
+    	String sql = "insert into customer values(?,?,?,?)";
+    	PreparedStatement pstmt = conn.prepareCall(sql);
+		pstmt.setString(1, SignUpTel.getText());
+		pstmt.setString(2, SignUpName.getText());
+		pstmt.setString(3, SignUpPw.getText());
+		pstmt.setString(4, SignUpId.getText());
+		pstmt.executeUpdate();
+
+		SignUp.getScene().getWindow().hide();
+    	Stage findaccount = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("../view/UserLogin.fxml"));
+    	Scene scene = new Scene(root);
+    	findaccount.setScene(scene);
+    	findaccount.setTitle("코로나 안전 리뷰 프로그램");
+    	findaccount.show();
+    	msg.setMessage("회원가입 성공! 아이디는 " + SignUpId.getText() + " 입니다!");
+
+    }
+
+
+
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		SignUpTel.setStyle(null);
+		SignUpName.setStyle(null);
+		SignUpPw.setStyle(null);
+		SignUpId.setStyle(null);
+	}
+
+
+}
+
+
+
+
+
+

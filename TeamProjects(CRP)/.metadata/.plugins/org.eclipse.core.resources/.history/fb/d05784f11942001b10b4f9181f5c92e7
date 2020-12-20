@@ -1,0 +1,170 @@
+package view;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.event.ActionEvent;
+
+import javafx.stage.Stage;
+import model.DBConnect;
+import model.Review;
+
+public class detailsController implements Initializable {
+
+	@FXML
+	private VBox reviewbox;
+	@FXML
+	private Button writing;
+	@FXML
+	private Button goback;
+    @FXML
+    private Label StoreName;
+
+
+	List<Review> list;
+	DBConnect connect = new DBConnect();
+	Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
+
+	@FXML
+	public void GoReview(ActionEvent event) {
+		writing.getScene().getWindow().hide(); // 현재 페이지를 안보이게 닫기
+
+		Stage review = new Stage();
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/review.fxml"));
+			Scene scene = new Scene(root);
+			review.setScene(scene);
+			review.show();
+		} catch (IOException e) {
+			System.out.println("리뷰쓰러가기 오류 발생" + e.getMessage());
+		}
+	}
+    @FXML
+    void Goback(ActionEvent event) {
+    	writing.getScene().getWindow().hide(); // 현재 페이지를 안보이게 닫기
+
+		Stage review = new Stage();
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/ShopListCard.fxml"));
+			Scene scene = new Scene(root);
+			review.setScene(scene);
+			review.show();
+		} catch (IOException e) {
+			System.out.println("리뷰쓰러가기 오류 발생" + e.getMessage());
+		}
+    }
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// 프로그램 실행시 아래 내용이 실행됨
+		list = ReviewList();
+		showReview(list);
+
+	}
+	public void showReview(List<Review> list){
+		for (int i = 0; i < list.size(); i++) {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("Reviewcard.fxml"));
+
+			try {
+
+				HBox hbox = fxmlLoader.load();
+				reviewbox.getChildren().add(hbox);
+				ReviewcardController cic = fxmlLoader.getController();
+				cic.setData(list.get(i));
+
+			} catch (Exception e) {
+				System.out.println("오류남");
+			}
+		}
+	}
+
+	private List<Review> ReviewList() {
+		List<Review> ReviewList = new ArrayList<>();
+
+		Review review;
+		String sql = "SELECT id,time,text,type1,type2,type3,type4 from review,maskrate where review.maskid = maskrate.maskid order by reviewid DESC";
+
+		 conn = connect.getConnection(); // 위에서 만든 DB연결 메소드
+
+		try {
+			pstmt = conn.prepareStatement(sql); // 쿼리 객체 생성
+			rs = pstmt.executeQuery(); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+			while (rs.next()) {
+				review = new Review(rs.getString("id"), rs.getTimestamp("time").toString(), rs.getString("text"), rs.getString("type1"),
+						rs.getString("type2"), rs.getString("type3"), rs.getString("type4"));
+				ReviewList.add(review);
+			}
+		} catch (SQLException e) {
+			System.out.println("DB에서 sql문을 실행불가:" + e.getMessage());
+		}
+		return ReviewList;
+	}
+}
+
+
+//=================================메모지영역=====================================
+
+// public ObservableList<Review> getReviewList(){
+// //fx에서 테이블뷰에 표시하기 위한 리스트로 ObservableList 사용
+// ObservableList<Review> ReviewList = FXCollections.observableArrayList();
+// //sql 작성
+// String sql = "SELECT text,type1,type2,type3,type4,time from
+// review,maskrate where review.maskid = maskrate.maskid order by reviewid
+// ASC";
+// Connection conn = getConnection(); //위에서 만든 DB연결 메소드
+// Statement stmt; //DB에 보낼 쿼리 객체 선언
+// ResultSet rs; //DB에서 받아오는
+// try {
+// stmt = conn.createStatement(); //쿼리 객체 생성
+// rs = stmt.executeQuery(sql); // 접속된 DB에서 쿼리를 실행하고 결과를 리턴
+// Review review;
+// while(rs.next()){
+// review = new
+// Review(rs.getString("text"),rs.getString("type1"),rs.getString("type2"),rs.getString("type3"),rs.getString("type4"),rs.getTimestamp("time").toString());
+// ReviewList.add(review);
+// }
+// } catch (SQLException e) {
+// System.out.println("DB에서 sql문을 실행불가:"+e.getMessage());
+// }
+// return ReviewList;
+// }
+// public void showReview() {
+// ObservableList<Review> list = getReviewList();
+// // 테이블뷰에 리스트를 넣고
+// tvReview.setItems(list);
+// // 각각의 열에 데이터를 불러오는 코드를 작성
+// coltext.setCellValueFactory(new PropertyValueFactory<Review,
+// String>("text"));
+// colscore1.setCellValueFactory(new PropertyValueFactory<Review,
+// String>("type1"));
+// colscore2.setCellValueFactory(new PropertyValueFactory<Review,
+// String>("type2"));
+// colscore3.setCellValueFactory(new PropertyValueFactory<Review,
+// String>("type3"));
+// colscore4.setCellValueFactory(new PropertyValueFactory<Review,
+// String>("type4"));
+// coldate.setCellValueFactory(new PropertyValueFactory<Review,
+// String>("date"));
+// }
